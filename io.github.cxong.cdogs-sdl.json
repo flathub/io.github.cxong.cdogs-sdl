@@ -47,10 +47,8 @@
       "name":"cdogs-sdl",
       "buildsystem":"cmake-ninja",
       "config-opts":[
-        "-DCMAKE_INSTALL_PREFIX=/app",
         "-DDATA_INSTALL_DIR=/app/",
-        "-DCDOGS_DATA_DIR=/app/",
-        "-DCMAKE_BUILD_TYPE=Release"
+        "-DCDOGS_DATA_DIR=/app/"
       ],
       "post-install":[
         "for i in 16 22 32 48 128; do
@@ -63,8 +61,12 @@
         {
           "type":"git",
           "url":"https://github.com/cxong/cdogs-sdl.git",
-          "commit":"c8d86264c33d2b434c17c87763c54b02f4d18bfc",
-          "tag":"1.0.0"
+          "commit":"82a196d8f0d1a9563de61aa259ed51e52c90b4b2",
+          "tag":"1.4.0",
+          "x-checker-data": {
+            "type": "git",
+            "tag-pattern": "^([\\d.]+)$"
+          }
         },
         {
           "type":"shell",
