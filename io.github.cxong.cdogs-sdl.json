@@ -1,80 +1,78 @@
 {
-  "app-id":"io.github.cxong.cdogs-sdl",
-  "runtime":"org.freedesktop.Platform",
-  "runtime-version":"22.08",
-  "sdk":"org.freedesktop.Sdk",
-  "command":"cdogs-sdl",
-  "finish-args":[
-    "--device=dri",
-    "--share=ipc",
-    "--socket=pulseaudio",
-    "--socket=wayland",
-    "--socket=fallback-x11",
-    "--share=network"
-  ],
-  "modules":[
-    {
-      "name":"protobuf",
-      "cleanup":[
-        "protoc",
-        "/bin",
-        "/doc",
-        "/lib/plugins"
-      ],
-      "sources":[
+    "app-id": "io.github.cxong.cdogs-sdl",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "22.08",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "cdogs-sdl",
+    "finish-args": [
+        "--device=dri",
+        "--share=ipc",
+        "--socket=pulseaudio",
+        "--socket=wayland",
+        "--socket=fallback-x11",
+        "--share=network"
+    ],
+    "modules": [
         {
-          "type":"archive",
-          "url":"https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protobuf-cpp-3.17.3.tar.gz",
-          "sha256":"51cec99f108b83422b7af1170afd7aeb2dd77d2bcbb7b6bad1f92509e9ccf8cb"
-        }
-      ]
-    },
-    {
-      "name":"python3-protobuf",
-      "buildsystem":"simple",
-      "build-commands":[
-        "python3 setup.py install --prefix=/app --root=/"
-      ],
-      "sources":[
-        {
-          "type":"archive",
-          "url":"https://files.pythonhosted.org/packages/3d/64/a3b379cb9c7827ad33c67dcda4c4ad117bdef1b7d68b22a05c963cf4727d/protobuf-3.17.3.tar.gz",
-          "sha256":"72804ea5eaa9c22a090d2803813e280fb273b62d5ae497aaf3553d141c4fdd7b"
-        }
-      ]
-    },
-    {
-      "name":"cdogs-sdl",
-      "buildsystem":"cmake-ninja",
-      "config-opts":[
-        "-DDATA_INSTALL_DIR=/app/",
-        "-DCDOGS_DATA_DIR=/app/"
-      ],
-      "post-install":[
-        "for i in 16 22 32 48 128; do
-                 install -Dm644 build/linux/cdogs-icon.${i}.png ${FLATPAK_DEST}/share/icons/hicolor/${i}x${i}/apps/io.github.cxong.cdogs-sdl.png
-             done",
-        "install -Dm644 build/linux/io.github.cxong.cdogs-sdl.appdata.xml -t ${FLATPAK_DEST}/share/metainfo/",
-        "install -Dm644 build/linux/io.github.cxong.cdogs-sdl.desktop -t ${FLATPAK_DEST}/share/applications/"
-      ],
-      "sources":[
-        {
-          "type":"git",
-          "url":"https://github.com/cxong/cdogs-sdl.git",
-          "commit":"82a196d8f0d1a9563de61aa259ed51e52c90b4b2",
-          "tag":"1.4.0",
-          "x-checker-data": {
-            "type": "git",
-            "tag-pattern": "^([\\d.]+)$"
-          }
+            "name": "protobuf",
+            "cleanup": [
+                "protoc",
+                "/bin",
+                "/doc",
+                "/lib/plugins"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protobuf-cpp-3.17.3.tar.gz",
+                    "sha256": "51cec99f108b83422b7af1170afd7aeb2dd77d2bcbb7b6bad1f92509e9ccf8cb"
+                }
+            ]
         },
         {
-          "type":"shell",
-          "commands":[
-            "sed 's| -Werror||' -i CMakeLists.txt"
-          ]
+            "name": "python3-protobuf",
+            "buildsystem": "simple",
+            "build-commands": [
+                "python3 setup.py install --prefix=/app --root=/"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://files.pythonhosted.org/packages/3d/64/a3b379cb9c7827ad33c67dcda4c4ad117bdef1b7d68b22a05c963cf4727d/protobuf-3.17.3.tar.gz",
+                    "sha256": "72804ea5eaa9c22a090d2803813e280fb273b62d5ae497aaf3553d141c4fdd7b"
+                }
+            ]
+        },
+        {
+            "name": "cdogs-sdl",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DDATA_INSTALL_DIR=/app/",
+                "-DCDOGS_DATA_DIR=/app/"
+            ],
+            "post-install": [
+                "for i in 16 22 32 48 128; do\n                 install -Dm644 build/linux/cdogs-icon.${i}.png ${FLATPAK_DEST}/share/icons/hicolor/${i}x${i}/apps/io.github.cxong.cdogs-sdl.png\n             done",
+                "install -Dm644 build/linux/io.github.cxong.cdogs-sdl.appdata.xml -t ${FLATPAK_DEST}/share/metainfo/",
+                "install -Dm644 build/linux/io.github.cxong.cdogs-sdl.desktop -t ${FLATPAK_DEST}/share/applications/"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/cxong/cdogs-sdl.git",
+                    "commit": "48f693372b85317932fafad6db06e4d07cdf3a2e",
+                    "tag": "1.4.1",
+                    "x-checker-data": {
+                        "type": "git",
+                        "tag-pattern": "^([\\d.]+)$"
+                    }
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "sed 's| -Werror||' -i CMakeLists.txt"
+                    ]
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
