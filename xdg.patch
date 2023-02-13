@@ -1,0 +1,78 @@
+From 153453ff489da85854b4523d065a53b841f1a3b6 Mon Sep 17 00:00:00 2001
+From: cxong <congusbongus@gmail.com>
+Date: Mon, 13 Feb 2023 20:39:19 +1100
+Subject: [PATCH] Use XDG_CONFIG_HOME when available (fixes #754)
+
+---
+ .gitignore                             |  1 +
+ src/cdogs/files.c                      | 24 +++++++++++++++---------
+ src/proto/nanopb/__init__.py           |  0
+ src/proto/nanopb/generator/__init__.py |  0
+ 4 files changed, 16 insertions(+), 9 deletions(-)
+ create mode 100644 src/proto/nanopb/__init__.py
+ create mode 100644 src/proto/nanopb/generator/__init__.py
+
+diff --git a/.gitignore b/.gitignore
+index daae90c22..3218ac482 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -36,6 +36,7 @@ build/windows/cdogs.rc
+ # Linux
+ bin/
+ /share/
++include/
+ 
+ # Visual Studio
+ enc_temp_folder/
+diff --git a/src/cdogs/files.c b/src/cdogs/files.c
+index 71e742d2e..00b7e3d10 100644
+--- a/src/cdogs/files.c
++++ b/src/cdogs/files.c
+@@ -22,7 +22,7 @@
+ 	This file incorporates work covered by the following copyright and
+ 	permission notice:
+ 
+-	Copyright (c) 2013-2016, 2018-2021 Cong Xu
++	Copyright (c) 2013-2016, 2018-2021, 2023 Cong Xu
+ 	All rights reserved.
+ 
+ 	Redistribution and use in source and binary forms, with or without
+@@ -602,18 +602,24 @@ const char *GetHomeDirectory(void)
+ 
+ /* GetConfigFilePath()
+  *
+- * returns a full path to a data file...
++ * returns a full path to a config file
+  */
+ char cfpath[CDOGS_PATH_MAX];
+ const char *GetConfigFilePath(const char *name)
+ {
+-	const char *homedir = GetHomeDirectory();
+-
+-	strcpy(cfpath, homedir);
+-
+-#ifndef __EMSCRIPTEN__
+-	strcat(cfpath, CDOGS_CFG_DIR);
+-#endif
++	const char *xdgConfigDir = getenv("XDG_CONFIG_HOME");
++	if (xdgConfigDir != NULL)
++	{
++		sprintf(cfpath, "%s/cdogs-sdl/", xdgConfigDir);
++	}
++	else
++	{
++		const char *homedir = GetHomeDirectory();
++		strcpy(cfpath, homedir);
++	#ifndef __EMSCRIPTEN__
++		strcat(cfpath, CDOGS_CFG_DIR);
++	#endif
++	}
+ 	strcat(cfpath, name);
+ 
+ 	return cfpath;
+diff --git a/src/proto/nanopb/__init__.py b/src/proto/nanopb/__init__.py
+new file mode 100644
+index 000000000..e69de29bb
+diff --git a/src/proto/nanopb/generator/__init__.py b/src/proto/nanopb/generator/__init__.py
+new file mode 100644
+index 000000000..e69de29bb

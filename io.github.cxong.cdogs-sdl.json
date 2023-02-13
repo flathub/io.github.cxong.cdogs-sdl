@@ -71,6 +71,10 @@
                     "commands": [
                         "sed 's| -Werror||' -i CMakeLists.txt"
                     ]
+                },
+                {
+                    "type": "patch",
+                    "path": "xdg.patch"
                 }
             ]
         }
