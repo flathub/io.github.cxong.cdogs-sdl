@@ -51,7 +51,7 @@
                 "-DCDOGS_DATA_DIR=/app/"
             ],
             "post-install": [
-                "for i in 16 22 32 48 128; do\n                 install -Dm644 build/linux/cdogs-icon.${i}.png ${FLATPAK_DEST}/share/icons/hicolor/${i}x${i}/apps/io.github.cxong.cdogs-sdl.png\n             done",
+                "for i in 16 22 32 48 64 128 256; do\n                 install -Dm644 build/linux/cdogs-icon.${i}.png ${FLATPAK_DEST}/share/icons/hicolor/${i}x${i}/apps/io.github.cxong.cdogs-sdl.png\n             done",
                 "install -Dm644 build/linux/io.github.cxong.cdogs-sdl.appdata.xml -t ${FLATPAK_DEST}/share/metainfo/",
                 "install -Dm644 build/linux/io.github.cxong.cdogs-sdl.desktop -t ${FLATPAK_DEST}/share/applications/"
             ],
@@ -59,8 +59,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/cxong/cdogs-sdl.git",
-                    "commit": "5101ef0f5efb84065e4d9e275e183b67f8242af7",
-                    "tag": "2.1.0",
+                    "commit": "53bf676868f8e7038531e828df4cbe1668c20527",
+                    "tag": "2.2.0",
                     "x-checker-data": {
                         "type": "git",
                         "tag-pattern": "^([\\d.]+)$"
@@ -71,10 +71,6 @@
                     "commands": [
                         "sed 's| -Werror||' -i CMakeLists.txt"
                     ]
-                },
-                {
-                    "type": "patch",
-                    "path": "appstream.patch"
                 }
             ]
         }
