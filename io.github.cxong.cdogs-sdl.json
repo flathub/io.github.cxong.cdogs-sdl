@@ -59,8 +59,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/cxong/cdogs-sdl.git",
-                    "commit": "afec4b47f6a2b72d644740eb7fbf4a4a8ca8d8a7",
-                    "tag": "2.3.0",
+                    "commit": "75b85961478676af5d135cefa2e687c2755be655",
+                    "tag": "2.3.1",
                     "x-checker-data": {
                         "type": "git",
                         "tag-pattern": "^([\\d.]+)$"
