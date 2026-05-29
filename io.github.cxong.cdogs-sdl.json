@@ -51,9 +51,9 @@
                 "-DCDOGS_DATA_DIR=/app/"
             ],
             "post-install": [
-                "for i in 16 22 32 48 64 128 256; do\n                 install -Dm644 build/linux/cdogs-icon.${i}.png ${FLATPAK_DEST}/share/icons/hicolor/${i}x${i}/apps/io.github.cxong.cdogs-sdl.png\n             done",
-                "install -Dm644 build/linux/io.github.cxong.cdogs-sdl.appdata.xml -t ${FLATPAK_DEST}/share/metainfo/",
-                "install -Dm644 build/linux/io.github.cxong.cdogs-sdl.desktop -t ${FLATPAK_DEST}/share/applications/"
+                "install -Dm644 build/linux/cdogs-icon.256.png ${FLATPAK_DEST}/share/icons/hicolor/256x256/apps/${FLATPAK_ID}.png",
+                "install -Dm644 build/linux/${FLATPAK_ID}.appdata.xml -t ${FLATPAK_DEST}/share/metainfo/",
+                "install -Dm644 build/linux/${FLATPAK_ID}.desktop -t ${FLATPAK_DEST}/share/applications/"
             ],
             "sources": [
                 {
